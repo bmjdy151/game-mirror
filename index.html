@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Facial Tracker</title>
+　<link type="text/css" rel="stylesheet" href="./css/style.css" media="screen"> <!--cssを読み込む-->
+</head>
+ 
+<body>
+  <h1>Tracking Mirror</h1>
+  <div id="container">  <!-- video の上に canvas をオーバーレイするための div 要素 -->
+    <video id="video" width="500" height="400" autoplay></video>  <!-- カメラ映像を流す video -->
+    <canvas id="canvas" width="500" height="400"></canvas><!-- 重ねて描画する canvas -->
+    
+  </div>
+  <div class="start-container">
+    <button id="start">start</button>
+  </div>
+  <div class="eyeoption-container">　<!--メガネオプション表示用 div 要素 -->
+    <div class="eyeoption" id="eyeoption0">None</div>
+    <div class="eyeoption" id="eyeoption1">sun glass</div>
+    <div class="eyeoption" id="eyeoption2">blue glass</div>
+    <div class="eyeoption" id="eyeoption3">red glass</div>
+  </div>
+  <div class="hatoption-container">　<!--帽子オプション表示用 div 要素 -->
+    <div class="hatoption" id="hatoption0">None</div>
+    <div class="hatoption" id="hatoption1">Knit Cap</div>
+    <div class="hatoption" id="hatoption2">Hat</div>
+    <div class="hatoption" id="hatoption3">#</div>
+  </div>
+  <div class="cheekoption-container">　<!--チークオプション表示用 div 要素 -->
+    <div class="cheekoption" id="cheekoption0">None</div>
+    <div class="cheekoption" id="cheekoption1">Orange</div>
+    <div class="cheekoption" id="cheekoption2">Brown</div>
+    <div class="cheekoption" id="cheekoption3">Red</div>
+  </div>
+  <div id="dat"></div>  <!-- データ表示用 div 要素 -->
+   <!-- メガネデータ用 div 要素 -->
+  <img id="blue" src="./media/eyeglass_green.png">
+  <img id="sun" src="./media/eyeglass_sun.png">
+  <img id="red" src="./media/eyeglass_red.png">
+  <!-- 帽子データ用 div 要素 -->
+  <img id="hblue" src="./media/hat-blue.png">
+  <!-- チークデータ用 div 要素 -->
+  <img id="c-o-l" src="./media/cheek-orange.png">
+  <img id="c-o-r" src="./media/cheek-orange-right.png">
+  <img id="c-b-l" src="./media/cheek-brown-left.png">
+  <img id="c-b-r" src="./media/cheek-brown-right.png">
+  <img id="c-r-l" src="./media/cheek-red-right.png">
+  <img id="c-r-r" src="./media/cheek-red-left.png">
+
+
+  
+  <!-- clmtrackr 関連ファイルの読み込み -->
+  <script src="./js/clmtrackr.js"></script>          <!-- clmtrackr のメインライブラリの読み込み -->
+  <script src="./models/model_pca_20_svm.js"></script>   <!-- 顔モデル（※）の読み込み -->
+  <script src="./js/main.js"></script> <!--メインのJSの読み込み -->
+</body>
+</html>
