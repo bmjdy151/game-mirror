@@ -2,14 +2,12 @@
 const video = document.querySelector("video");　　　　　　// video 要素を取得
 const canvas = document.getElementById("canvas");       // canvas 要素の取得
 const context = canvas.getContext("2d");                // canvas の context の取得
-// const stampNose = new Image();                          // ★鼻のスタンプ画像を入れる Image オブジェクト
-// const stampEars = new Image();                          // ★耳のスタンプ画像を入れる Image オブジェクト
-// stampNose.src = "../media/nose.png";                             // ★鼻のスタンプ画像のファイル名
-// stampEars.src = "../media/ears.png";                             // ★耳のスタンプ画像のファイル名 
+//デフォルト設定
 let startcheck = false;
 let eye_selection = "blue";
-let hat_selection = "knit";
-let cheek_selection = "orange";
+let hat_selection = "none";
+let acc_selection = "none";
+let cheek_selection = "none";
 const start = document.getElementById("start"); //スタートボタン用に要素を取得
 //メガネのオプション画像
 const blue = document.getElementById('blue');
@@ -20,13 +18,29 @@ const eoption0 = document.getElementById("eyeoption0");
 const eoption1 = document.getElementById("eyeoption1");
 const eoption2 = document.getElementById("eyeoption2");
 const eoption3 = document.getElementById("eyeoption3");
+const eoption4 = document.getElementById("eyeoption4");
 //帽子のオプション画像
-const hblue = document.getElementById('hblue');
+const bunny = document.getElementById('bunny');
+const bheadphone = document.getElementById('b-headphone');
+const hat = document.getElementById('hat');
+const crown = document.getElementById('crown');
 //帽子のオプションボタン
-const hoption0 = document.getElementById("hatoption0");
-const hoption1 = document.getElementById("hatoption1");
-const hoption2 = document.getElementById("hatoption2");
-const hoption3 = document.getElementById("hatoption3");
+const haption0 = document.getElementById("hatoption0");
+const haption1 = document.getElementById("hatoption1");
+const haption2 = document.getElementById("hatoption2");
+const haption3 = document.getElementById("hatoption3");
+const haption4 = document.getElementById("hatoption4");
+//小物のオプション画像
+const nose = document.getElementById('nose');
+const cigar = document.getElementById('cigar');
+const jewel = document.getElementById('jewel');
+//小物のオプションボタン
+const aoption0 = document.getElementById("aoption0");
+const aoption1 = document.getElementById("aoption1");
+const aoption2 = document.getElementById("aoption2");
+const aoption3 = document.getElementById("aoption3");
+const aoption4 = document.getElementById("aoption4");
+
 //チークのオプション画像
 const corangeL = document.getElementById('c-o-l');
 const corangeR = document.getElementById('c-o-r');
@@ -39,6 +53,7 @@ const coption0 = document.getElementById("cheekoption0");
 const coption1 = document.getElementById("cheekoption1");
 const coption2 = document.getElementById("cheekoption2");
 const coption3 = document.getElementById("cheekoption3");
+const coption4 = document.getElementById("cheekoption4");
 
 //getUserMedia によるカメラ映像の取得
 const constraints = {
@@ -68,6 +83,7 @@ function drawLoop() {
 
   if(startcheck){
     console.log(eye_selection );
+    //以下メガネロジック
     if(eye_selection == "none"){
       blue.style.display = "none";
       sun.style.display = "none";
@@ -85,9 +101,49 @@ function drawLoop() {
       blue.style.display = "none";
       sun.style.display = "none";
     }
-    if(hat_selection == "knit"){
-      // drawStamp(positions, hblue, 33, 2.5, 0.0, -2.8);   // ★ニット帽のスタンプを描画
+
+    //以下帽子ロジック
+    if(hat_selection == "none"){
+      bunny.style.display ="none";
+      bheadphone.style.display ="none";
     }
+    else if(hat_selection == "bunny"){
+      drawStamp(positions, bunny, 33, 3, 0.0, -2.9);   // ★ウサギの耳のスタンプを描画
+    }else if (hat_selection == "bheadphone"){
+      drawStamp(positions, bheadphone, 33, 3.4, 0.0, -0.8);   // ★青いヘッドフォンを描画
+    }else if (hat_selection == "hat"){
+      drawStamp(positions, hat, 33, 3.6, 0.0, -1.7);   // ★ハットを描画
+    }else if (hat_selection == "crown"){
+      drawStamp(positions, crown, 33, 1.2, 0.0, -2.5);   // ★王冠を描画
+    }
+
+    //以下小物ロジック
+    if(acc_selection == "none"){
+      nose.style.display ="none";
+      cigar.style.display ="none";
+      jewel.style.display ="none";
+    }
+    else if(acc_selection == "orange"){
+      // drawStamp(positions, corangeR, 35, 0.8, 1.0, 0);   // ★オレンジチーク左のスタンプを描画
+      // drawStamp(positions, corangeL, 39, 0.8, -1.0, 0);   // ★オレンジチーク右のスタンプを描画
+      // cbrownL.style.display ="none";
+      // cbrownR.style.display ="none";
+      // credL.style.display ="none";
+      // credR.style.display ="none";
+    }else if (acc_selection == "nose"){
+      drawStamp(positions, nose, 62, 2.5, 0.0, -0.1);   // ★ウサギの鼻のスタンプを描画
+      cigar.style.display ="none";
+      jewel.style.display ="none";
+    }else if (acc_selection == "cigar"){
+      drawStamp(positions, cigar, 44, 1, -0.4, -0.1);   // ★タバコのスタンプを描画
+      jewel.style.display ="none";
+      nose.style.display ="none";
+    }
+    else if (acc_selection == "jewel"){
+      drawStamp(positions, jewel, 1, 0.3, 0, 0.5);   // ★左のジュエルスタンプを描画
+      drawStamp(positions, jewel, 13, 0.3, 0, 0.5);   // ★右のジュエルスタンプを描画
+    }
+    //以下チークロジック
     if(cheek_selection == "none"){
       corangeL.style.display ="none";
       corangeR.style.display ="none";
@@ -118,8 +174,14 @@ function drawLoop() {
       cbrownL.style.display ="none";
       cbrownR.style.display ="none";
     }
-    //drawStamp(positions, image, 62, 2.5, 0.0, 0.0);   // ★鼻のスタンプを描画
-    // drawStamp(positions, stampEars, 33, 3.0, 0.0, -1.8);  // ★耳のスタンプを描画
+    else if (cheek_selection == "pink"){
+      // drawStamp(positions, credR, 35, 0.7, 1.0, 0);   // ★ピンクチーク左のスタンプを描画
+      // drawStamp(positions, credL, 39, 0.7, -1.0, 0);   // ★ピンクチーク右のスタンプを描画
+      // corangeL.style.display ="none";
+      // corangeR.style.display ="none";
+      // cbrownL.style.display ="none";
+      // cbrownR.style.display ="none";
+    }
   }
 }
 drawLoop();                                             // drawLoop 関数をトリガー
@@ -143,17 +205,36 @@ eoption3.addEventListener("click", function() {
   eye_selection = "red";
 });
 //クリックイベントリスナー : 帽子
-hoption0.addEventListener("click", function() {
+haption0.addEventListener("click", function() {
   hat_selection = "none";
 });
-hoption1.addEventListener("click", function() {
-  hat_selection = "knit";
+haption1.addEventListener("click", function() {
+  hat_selection = "bunny";
 });
-hoption2.addEventListener("click", function() {
-  hat_selection = "";
+haption2.addEventListener("click", function() {
+  hat_selection = "bheadphone";
 });
-hoption3.addEventListener("click", function() {
-  hat_selection = "";
+haption3.addEventListener("click", function() {
+  hat_selection = "hat";
+});
+haption4.addEventListener("click", function() {
+  hat_selection = "crown";
+});
+//クリックイベントリスナー : 小物
+aoption0.addEventListener("click", function() {
+  acc_selection = "none";
+});
+aoption1.addEventListener("click", function() {
+  acc_selection = "orange";
+});
+aoption2.addEventListener("click", function() {
+  acc_selection = "nose";
+});
+aoption3.addEventListener("click", function() {
+  acc_selection = "cigar";
+});
+aoption4.addEventListener("click", function() {
+  acc_selection = "jewel";
 });
 //クリックイベントリスナー : チーク
 coption0.addEventListener("click", function() {
@@ -167,6 +248,9 @@ coption2.addEventListener("click", function() {
 });
 coption3.addEventListener("click", function() {
   cheek_selection = "red";
+});
+coption4.addEventListener("click", function() {
+  cheek_selection = "pink";
 });
 
 

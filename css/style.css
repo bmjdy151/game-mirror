@@ -43,23 +43,26 @@
     border-bottom: none;
   }
 
-  .eyeoption-container {
+  .eyeoption-container,.hatoption-container,.aoption-container,.cheekoption-container {
     width: 100%;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    position:relative;
+    right:18px;
+    justify-content: space-between;
     margin-top:20px;
+
   }
   .eyeoption {
     background-color: #ffa69e;
-    width:150px;
+    width:15%;
     margin:0px;
     font-size: 16px;
     color: #CE5B78;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
-    padding: 2px 2px;
+    padding: 0px 2px;
     border-radius: 4px;
     border-bottom: 4px solid #CE5B78;
     text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
@@ -70,16 +73,9 @@
     border-bottom: none;
   }
 
-  .hatoption-container {
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    margin-top:20px;
-  }
   .hatoption {
     background-color: #51b7f1;
-    width:150px;
+    width:15%;
     margin:0px;
     font-size: 16px;
     color: rgb(61, 79, 243);
@@ -96,16 +92,28 @@
     border-bottom: none;
   }
 
-  .cheekoption-container {
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    margin-top:20px;
+  .aoption {
+    background-color: #f0f5a6;
+    width:15%;
+    margin:0px;
+    font-size: 16px;
+    color: rgb(187, 175, 7);
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 2px 2px;
+    border-radius: 4px;
+    border-bottom: 4px solid rgb(187, 175, 7);
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
   }
+  .aoption:active {
+    transform: translateY(4px);
+    border-bottom: none;
+  }
+
   .cheekoption {
     background-color: #ffd59e;
-    width:150px;
+    width:15%;
     margin:0px;
     font-size: 16px;
     color: rgb(236, 90, 22);
