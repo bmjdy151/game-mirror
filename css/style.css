@@ -14,7 +14,11 @@
     transform: scaleX(-1);  /* 左右反転させる */
   }
   #canvas {                 /* 描画用の canvas について */
-    transform: scaleX(-1);  /* 左右反転させる */
+    transform: scaleX(-1);  /*左右反転させる*/
+    position: absolute;    
+    top: 0;                 
+  }
+  #canvas2 {                 /* スコア用の canvas について */
     position: absolute;    
     top: 0;                 
   }

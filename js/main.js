@@ -1,7 +1,17 @@
 // もろもろの準備
 const video = document.querySelector("video");　　　　　　// video 要素を取得
 const canvas = document.getElementById("canvas");       // canvas 要素の取得
+const canvas2 = document.getElementById("canvas2");       // canvas 要素の取得
 const context = canvas.getContext("2d");                // canvas の context の取得
+const context2 = canvas2.getContext("2d");                // canvas の context の取得
+context2.font = "30px Arial";
+let score = 0;
+const gradient = context2.createLinearGradient(0, 0, canvas2.width, 0);
+gradient.addColorStop("0","magenta");
+gradient.addColorStop(".25","blue");
+gradient.addColorStop(".50","green");
+gradient.addColorStop(".75","yellow");
+gradient.addColorStop("1.0","red");
 //デフォルト設定
 let startcheck = false;
 let eye_selection = "blue";
@@ -9,16 +19,23 @@ let hat_selection = "none";
 let acc_selection = "none";
 let cheek_selection = "none";
 const start = document.getElementById("start"); //スタートボタン用に要素を取得
-//メガネのオプション画像
+
+//目のオプション画像
 const blue = document.getElementById('blue');
 const sun = document.getElementById('sun');
-const red = document.getElementById('red');
-//メガネのオプションボタン
+// const red = document.getElementById('red');
+const eyelash1 = document.getElementById('eyelash1');
+const eyelash2 = document.getElementById('eyelash2');
+const reye = document.getElementById('reye');
+const reye1 = document.getElementById('reye1');
+const reye2 = document.getElementById('reye2');
+//目のオプションボタン
 const eoption0 = document.getElementById("eyeoption0");
 const eoption1 = document.getElementById("eyeoption1");
 const eoption2 = document.getElementById("eyeoption2");
 const eoption3 = document.getElementById("eyeoption3");
 const eoption4 = document.getElementById("eyeoption4");
+
 //帽子のオプション画像
 const bunny = document.getElementById('bunny');
 const bheadphone = document.getElementById('b-headphone');
@@ -30,10 +47,12 @@ const haption1 = document.getElementById("hatoption1");
 const haption2 = document.getElementById("hatoption2");
 const haption3 = document.getElementById("hatoption3");
 const haption4 = document.getElementById("hatoption4");
+
 //小物のオプション画像
 const nose = document.getElementById('nose');
 const cigar = document.getElementById('cigar');
 const jewel = document.getElementById('jewel');
+const mustache = document.getElementById('mustache');
 //小物のオプションボタン
 const aoption0 = document.getElementById("aoption0");
 const aoption1 = document.getElementById("aoption1");
@@ -41,14 +60,16 @@ const aoption2 = document.getElementById("aoption2");
 const aoption3 = document.getElementById("aoption3");
 const aoption4 = document.getElementById("aoption4");
 
-//チークのオプション画像
+//メイクのオプション画像
 const corangeL = document.getElementById('c-o-l');
 const corangeR = document.getElementById('c-o-r');
 const cbrownL = document.getElementById('c-b-l');
 const cbrownR = document.getElementById('c-b-r');
 const credL = document.getElementById('c-r-l');
 const credR = document.getElementById('c-r-r');
-//チークのオプションボタン
+const lip_t = document.getElementById('lip_t');
+const lip_b = document.getElementById('lip_b');
+//メイクのオプションボタン
 const coption0 = document.getElementById("cheekoption0");
 const coption1 = document.getElementById("cheekoption1");
 const coption2 = document.getElementById("cheekoption2");
@@ -77,29 +98,35 @@ function drawLoop() {
   var positions = tracker.getCurrentPosition();         // 顔部品の現在位置の取得
   // showData(positions);                                  // データの表示
   context.clearRect(0, 0, canvas.width, canvas.height); // canvas をクリア
+  context2.clearRect(0, 0, canvas2.width, canvas2.height); // canvas をクリア
   //tracker.draw(canvas);                                 // canvas にトラッキング結果を描画
 
   // console.log(positions);
 
   if(startcheck){
-    console.log(eye_selection );
-    //以下メガネロジック
+    //以下目ロジック
     if(eye_selection == "none"){
       blue.style.display = "none";
       sun.style.display = "none";
       red.style.display = "none";
+      eyelash1.style.display = "none";
+      eyelash2.style.display = "none";
     }else if(eye_selection == "blue"){
       drawStamp(positions, blue, 33, 2, 0.0, 0.3);   // ★青メガネのスタンプを描画
-      sun.style.display = "none";
-      red.style.display = "none";
+      context2.fillText("You Look OK", 10, 50);
     }else if(eye_selection == "sun"){
       drawStamp(positions, sun, 33, 2, 0.0, 0.3);   // ★サングラスのスタンプを描画
-      blue.style.display = "none";
-      red.style.display = "none";
+      if(hat_selection == "bheadphone"){
+      }else{
+        score = 0;
+      }
     }else if(eye_selection == "red"){
-      drawStamp(positions, red, 33, 2, 0.0, 0.3);   // ★赤メガネのスタンプを描画
-      blue.style.display = "none";
-      sun.style.display = "none";
+      // drawStamp(positions, red, 33, 2, 0.0, 0.3);   // ★赤メガネのスタンプを描画
+      drawStamp(positions, reye, 32, 0.25, 0, 0);   // ★レッドチーク左のスタンプを描画
+      drawStamp(positions, reye, 27, 0.25, 0, 0);   // ★レッドチーク右のスタンプを描画
+    }else if(eye_selection == "eyelash"){
+      drawStamp(positions, eyelash1, 28, 0.5, 0.05, -0.1);   // ★まつ毛のスタンプを描画
+      drawStamp(positions, eyelash2, 23, 0.5, -0.05, -0.1);   // ★まつ毛のスタンプを描画
     }
 
     //以下帽子ロジック
@@ -122,22 +149,12 @@ function drawLoop() {
       nose.style.display ="none";
       cigar.style.display ="none";
       jewel.style.display ="none";
-    }
-    else if(acc_selection == "orange"){
-      // drawStamp(positions, corangeR, 35, 0.8, 1.0, 0);   // ★オレンジチーク左のスタンプを描画
-      // drawStamp(positions, corangeL, 39, 0.8, -1.0, 0);   // ★オレンジチーク右のスタンプを描画
-      // cbrownL.style.display ="none";
-      // cbrownR.style.display ="none";
-      // credL.style.display ="none";
-      // credR.style.display ="none";
+    }else if (acc_selection == "mustache"){
+      drawStamp(positions, mustache, 37, 1.2, 0.0, 0.2);   // ★口髭のスタンプを描画
     }else if (acc_selection == "nose"){
       drawStamp(positions, nose, 62, 2.5, 0.0, -0.1);   // ★ウサギの鼻のスタンプを描画
-      cigar.style.display ="none";
-      jewel.style.display ="none";
     }else if (acc_selection == "cigar"){
       drawStamp(positions, cigar, 44, 1, -0.4, -0.1);   // ★タバコのスタンプを描画
-      jewel.style.display ="none";
-      nose.style.display ="none";
     }
     else if (acc_selection == "jewel"){
       drawStamp(positions, jewel, 1, 0.3, 0, 0.5);   // ★左のジュエルスタンプを描画
@@ -155,33 +172,34 @@ function drawLoop() {
     else if(cheek_selection == "orange"){
       drawStamp(positions, corangeR, 35, 0.8, 1.0, 0);   // ★オレンジチーク左のスタンプを描画
       drawStamp(positions, corangeL, 39, 0.8, -1.0, 0);   // ★オレンジチーク右のスタンプを描画
-      cbrownL.style.display ="none";
-      cbrownR.style.display ="none";
-      credL.style.display ="none";
-      credR.style.display ="none";
     }else if (cheek_selection == "brown"){
       drawStamp(positions, cbrownL, 35, 0.7, 1.0, 0);   // ★ブラウンチーク左のスタンプを描画
       drawStamp(positions, cbrownR, 39, 0.7, -1.0, 0);   // ★ブラウンチーク右のスタンプを描画
-      corangeL.style.display ="none";
-      corangeR.style.display ="none";
-      credL.style.display ="none";
-      credR.style.display ="none";
     }else if (cheek_selection == "red"){
       drawStamp(positions, credR, 35, 0.7, 1.0, 0);   // ★レッドチーク左のスタンプを描画
       drawStamp(positions, credL, 39, 0.7, -1.0, 0);   // ★レッドチーク右のスタンプを描画
-      corangeL.style.display ="none";
-      corangeR.style.display ="none";
-      cbrownL.style.display ="none";
-      cbrownR.style.display ="none";
     }
-    else if (cheek_selection == "pink"){
-      // drawStamp(positions, credR, 35, 0.7, 1.0, 0);   // ★ピンクチーク左のスタンプを描画
-      // drawStamp(positions, credL, 39, 0.7, -1.0, 0);   // ★ピンクチーク右のスタンプを描画
-      // corangeL.style.display ="none";
-      // corangeR.style.display ="none";
-      // cbrownL.style.display ="none";
-      // cbrownR.style.display ="none";
+    else if (cheek_selection == "lip"){
+      drawStamp(positions, lip_t, 47, 0.9, 0, 0);   // ★リップのスタンプを描画
+      drawStamp(positions, lip_b, 57, 0.9, 0, 0);   // ★リップのスタンプを描画
     }
+    if(score ==150){
+      context2.fillStyle = gradient;
+      context2.fillText("Amazing Bunny!", 10, 50);
+    }else if(score ==100){
+      context2.fillStyle = gradient;
+      context2.fillText("You Look Awesome!!", 10, 50);
+    }else if(score == 50){
+      context2.fillStyle = 'pink';
+      context2.fillText("You Look Better", 10, 50);
+    }else if(score == 0){
+      context2.fillStyle = 'black';
+      context2.fillText("You Look OK", 10, 50);
+    }else if(score == -50){
+      context2.fillStyle = 'black';
+      context2.fillText("You Look Weird..", 10, 50);
+    }
+
   }
 }
 drawLoop();                                             // drawLoop 関数をトリガー
@@ -191,18 +209,41 @@ start.addEventListener("click", function() {
   startcheck = true;
 });
 
-//クリックイベントリスナー : メガネ
+//クリックイベントリスナー : 目
 eoption0.addEventListener("click", function() {
   eye_selection = "none";
 });
 eoption1.addEventListener("click", function() {
   eye_selection = "sun";
+  if(hat_selection == "bheadphone" && acc_selection == "cigar"){
+    score = 100;
+   }
+   else if(hat_selection == "bheadphone" || acc_selection == "cigar"){
+    score = 50;
+   }else if(cheek_selection !== "none"){
+    score = -50;
+   }else{
+    score =0;
+   }
 });
 eoption2.addEventListener("click", function() {
   eye_selection = "blue";
 });
 eoption3.addEventListener("click", function() {
   eye_selection = "red";
+  if(hat_selection == "bunny" && acc_selection == "nose" && cheek_selection !== "none"){
+    score = 150;
+  }else if(hat_selection == "bunny" && acc_selection == "nose"){
+    score = 100;
+   }
+   else if(hat_selection == "bunny" || acc_selection == "nose"){
+    score = 50;
+   }else{
+    score =0;
+   }
+});
+eoption4.addEventListener("click", function() {
+  eye_selection = "eyelash";
 });
 //クリックイベントリスナー : 帽子
 haption0.addEventListener("click", function() {
@@ -210,9 +251,29 @@ haption0.addEventListener("click", function() {
 });
 haption1.addEventListener("click", function() {
   hat_selection = "bunny";
+  if(eye_selection == "red" && acc_selection == "nose" && cheek_selection !== "none"){
+    score = 150;
+  }else if(eye_selection == "red" && acc_selection == "nose"){
+    score = 100;
+   }
+   else if(eye_selection == "red" || acc_selection == "nose"){
+    score = 50;
+   }else{
+    score =0;
+   }
 });
 haption2.addEventListener("click", function() {
   hat_selection = "bheadphone";
+  if(eye_selection == "sun" && acc_selection == "cigar"){
+    score = 100;
+   }
+   else if(eye_selection == "sun" || acc_selection == "cigar"){
+    score = 50;
+   }else if(cheek_selection !== "none"){
+    score = -50;
+   }else{
+    score =0;
+   }
 });
 haption3.addEventListener("click", function() {
   hat_selection = "hat";
@@ -225,13 +286,32 @@ aoption0.addEventListener("click", function() {
   acc_selection = "none";
 });
 aoption1.addEventListener("click", function() {
-  acc_selection = "orange";
+  acc_selection = "mustache";
 });
 aoption2.addEventListener("click", function() {
   acc_selection = "nose";
+  if(eye_selection == "red" && hat_selection == "bunny" && cheek_selection !== "none"){
+    score = 150;
+  }else if(eye_selection == "red" && hat_selection == "bunny"){
+    score = 100;
+  }else if(eye_selection == "red" || hat_selection == "bunny"){
+    score = 50;
+  }else{
+    score =0;
+  }
 });
 aoption3.addEventListener("click", function() {
   acc_selection = "cigar";
+  if(hat_selection == "bheadphone" && eye_selection == "sun"){
+    score = 100;
+   }
+   else if(hat_selection == "bheadphone" || eye_selection == "sun"){
+    score = 50;
+   }else if(cheek_selection !== "none"){
+    score = -50;
+   }else{
+    score =0;
+   }
 });
 aoption4.addEventListener("click", function() {
   acc_selection = "jewel";
@@ -242,15 +322,53 @@ coption0.addEventListener("click", function() {
 });
 coption1.addEventListener("click", function() {
   cheek_selection = "orange";
+  if(eye_selection == "sun" && hat_selection == "bheadphone" && acc_selection=="cigar"){
+    score = -50;
+   }
+
+  if(eye_selection == "red" && hat_selection == "bunny" && acc_selection == "nose"){
+    score = 150;
+  }else if(eye_selection == "red" && hat_selection == "bunny" || eye_selection == "red" && acc_selection == "nose" || hat_selection == "bunny" && acc_selection == "nose" ){
+    score = 100;
+  }else if(eye_selection == "red" || hat_selection == "bunny" || acc_selection == "nose"){
+    score = 50;
+  }else{
+    score =0;
+  }
 });
 coption2.addEventListener("click", function() {
   cheek_selection = "brown";
+  if(eye_selection == "sun" && hat_selection == "bheadphone" && acc_selection=="cigar"){
+    score = -50;
+   }
+  
+  if(eye_selection == "red" && hat_selection == "bunny" && acc_selection == "nose"){
+    score = 150;
+  }else if(eye_selection == "red" && hat_selection == "bunny" || eye_selection == "red" && acc_selection == "nose" || hat_selection == "bunny" && acc_selection == "nose" ){
+    score = 100;
+  }else if(eye_selection == "red" || hat_selection == "bunny" || acc_selection == "nose"){
+    score = 50;
+  }else{
+    score =0;
+  }
 });
 coption3.addEventListener("click", function() {
   cheek_selection = "red";
+  if(eye_selection == "sun" && hat_selection == "bheadphone" && acc_selection=="cigar"){
+    score = -50;
+   }
+  if(eye_selection == "red" && hat_selection == "bunny" && acc_selection == "nose"){
+    score = 150;
+  }else if(eye_selection == "red" && hat_selection == "bunny" || eye_selection == "red" && acc_selection == "nose" || hat_selection == "bunny" && acc_selection == "nose" ){
+    score = 100;
+  }else if(eye_selection == "red" || hat_selection == "bunny" || acc_selection == "nose"){
+    score = 50;
+  }else{
+    score =0;
+  }
 });
 coption4.addEventListener("click", function() {
-  cheek_selection = "pink";
+  cheek_selection = "lip";
 });
 
 
