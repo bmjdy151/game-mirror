@@ -9,16 +9,20 @@
  
 <body>
   <h1>Tracking Mirror</h1>
-  <div id="container">  <!-- video の上に canvas をオーバーレイするための div 要素 -->
-    <video id="video" width="500" height="400" autoplay></video>  <!-- カメラ映像を流す video -->
-    <canvas id="canvas" width="500" height="400"></canvas><!-- 重ねて描画する canvas -->
-    <canvas id="canvas2" width="500" height="50"></canvas><!-- スコア表示用 canvas -->
-    
+  <div id="mirror-container">  
+    <div id="container">  <!-- video の上に canvas をオーバーレイするための div 要素 -->
+      <video id="video" width="500" height="400" autoplay></video>  <!-- カメラ映像を流す video -->
+      <canvas id="canvas" width="500" height="400"></canvas><!-- 重ねて描画する canvas -->
+      <canvas id="canvas2" width="300" height="80"></canvas><!-- スコア表示用 canvas -->
+    </div>
+    <img id="mirror" src="./media/mirror.png" alt="">
+    <button id="save">Save</button>
   </div>
   <div class="start-container">
     <button id="start">start</button>
   </div>
-  <div class="eyeoption-container">　<!--メガネオプション表示用 div 要素 -->
+  <div class="eyeoption-container">　<!--目オプション表示用 div 要素 -->
+    <div class="label">Eyes</div>
     <div class="eyeoption" id="eyeoption0">None</div>
     <div class="eyeoption" id="eyeoption1">Sun glass</div>
     <div class="eyeoption" id="eyeoption4">Eyelash</div>
@@ -27,6 +31,7 @@
     
   </div>
   <div class="hatoption-container">　<!--帽子オプション表示用 div 要素 -->
+    <div class="label">Head</div>
     <div class="hatoption" id="hatoption0">None</div>
     <div class="hatoption" id="hatoption1">Animal</div>
     <div class="hatoption" id="hatoption2">Headphone</div>
@@ -34,6 +39,7 @@
     <div class="hatoption" id="hatoption4">Crown</div>
   </div>
   <div class="aoption-container">　<!--小物オプション表示用 div 要素 -->
+    <div class="label">Accessary</div>
     <div class="aoption" id="aoption0">None</div>
     <div class="aoption" id="aoption4">Jewel</div>
     <div class="aoption" id="aoption1">Mustache</div>
@@ -41,41 +47,44 @@
     <div class="aoption" id="aoption3">Cigar</div>
   </div>
   <div class="cheekoption-container">　<!--メイクオプション表示用 div 要素 -->
+    <div class="label">Makeup</div>
     <div class="cheekoption" id="cheekoption0">None</div>
-    <div class="cheekoption" id="cheekoption1">Orange</div>
-    <div class="cheekoption" id="cheekoption2">Brown</div>
-    <div class="cheekoption" id="cheekoption3">Red</div>
-    <div class="cheekoption" id="cheekoption4">Lip</div>
+    <div class="cheekoption" id="cheekoption1">Cheek1</div>
+    <div class="cheekoption" id="cheekoption2">Lip1</div>
+    <div class="cheekoption" id="cheekoption3">Cheek2</div>
+    <div class="cheekoption" id="cheekoption4">Lip2</div>
   </div>
   <div id="dat"></div>  <!-- データ表示用 div 要素 -->
-   <!-- メガネデータ用 div 要素 -->
-  <img id="blue" src="./media/eyeglass_green.png">
-  <img id="sun" src="./media/eyeglass_sun.png">
-  <img id="red" src="./media/eyeglass_red.png">
-  <img id="eyelash1" src="./media/eyelash1.png">
-  <img id="eyelash2" src="./media/eyelash2.png">
-  <img id="reye" src="./media/reye.png">
-  <img id="reye1" src="./media/reye1.png">
-  <img id="reye2" src="./media/reye2.png"> 
+   <!--　目データ用 div 要素 -->
+  <img class="dataimage" id="blue" src="./media/eyeglass_green.png">
+  <img class="dataimage" id="sun" src="./media/eyeglass_sun.png">
+  <img class="dataimage" id="red" src="./media/eyeglass_red.png">
+  <img class="dataimage" id="eyelash1" src="./media/eyelash1.png">
+  <img class="dataimage" id="eyelash2" src="./media/eyelash2.png">
+  <img class="dataimage" id="reye" src="./media/reye.png">
+  <img class="dataimage" id="reye1" src="./media/reye1.png">
+  <img class="dataimage" id="reye2" src="./media/reye2.png"> 
   <!-- 帽子データ用 div 要素 -->
-  <img id="bunny" src="./media/bunny ears.png">
-  <img id="b-headphone" src="./media/headphone-blue2.png">
-  <img id="hat" src="./media/hat.png">
-  <img id="crown" src="./media/crown.png">
+  <img class="dataimage" id="bunny" src="./media/bunny ears.png">
+  <img class="dataimage" id="b-headphone" src="./media/headphone-blue2.png">
+  <img class="dataimage" id="hat" src="./media/hat.png">
+  <img class="dataimage" id="crown" src="./media/crown.png">
   <!-- 小物用 div 要素 -->
-  <img id="nose" src="./media/bunny_nose.png">
-  <img id="cigar" src="./media/cigar.png">
-  <img id="jewel" src="./media/jewel.png">
-  <img id="mustache" src="./media/mustache.png">
+  <img class="dataimage" id="nose" src="./media/bunny_nose.png">
+  <img class="dataimage" id="cigar" src="./media/cigar.png">
+  <img class="dataimage" id="jewel" src="./media/jewel.png">
+  <img class="dataimage" id="mustache" src="./media/mustache.png">
   <!-- メイクデータ用 div 要素 -->
-  <img id="c-o-l" src="./media/cheek-orange.png">
-  <img id="c-o-r" src="./media/cheek-orange-right.png">
-  <img id="c-b-l" src="./media/cheek-brown-left.png">
-  <img id="c-b-r" src="./media/cheek-brown-right.png">
-  <img id="c-r-l" src="./media/cheek-red-right.png">
-  <img id="c-r-r" src="./media/cheek-red-left.png"> 
-  <img id="lip_t" src="./media/lip_t.png"> 
-  <img id="lip_b" src="./media/lip_b.png"> 
+  <img class="dataimage" id="c-o-l" src="./media/cheek-orange.png">
+  <img class="dataimage" id="c-o-r" src="./media/cheek-orange-right.png">
+  <!-- <img id="c-b-l" src="./media/cheek-brown-left.png">
+  <img id="c-b-r" src="./media/cheek-brown-right.png"> -->
+  <img class="dataimage" id="c-r-l" src="./media/cheek-red-right.png">
+  <img class="dataimage" id="c-r-r" src="./media/cheek-red-left.png"> 
+  <img class="dataimage" id="lip_t" src="./media/lip_t3.png"> 
+  <img class="dataimage" id="lip_b" src="./media/lip_b2.png"> 
+  <img class="dataimage" id="lip_tr" src="./media/lip_tr.png"> 
+  <img class="dataimage" id="lip_br" src="./media/lip_br.png"> 
 
 
   

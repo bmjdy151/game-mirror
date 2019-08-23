@@ -1,17 +1,39 @@
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body{
+    background-color: #fcfcfc;
+    background-image: radial-gradient(#eee 10%, transparent 20%), radial-gradient(#eee 10%, transparent 20%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+  }
   h1{
     color:lightslategray;
     display: flex;
     justify-content: center;
+    margin: 0 !important;
+    padding:0 !important;
   }
   
+  #mirror-container {              /* コンテナ用の div について */
+    position: relative;     /* 座標指定を相対値指定にする */
+    display: flex;
+    justify-content: center;
+  }
+
   /* video 要素の上に canvas 要素をオーバーレイするための CSS */
   #container {              /* コンテナ用の div について */
+    margin-top: 10px;
     position: relative;     /* 座標指定を相対値指定にする */
     display: flex;
     justify-content: center;
   }
   #video {                  /* カメラ映像を流す video について */
     transform: scaleX(-1);  /* 左右反転させる */
+    border-radius: 50%;
   }
   #canvas {                 /* 描画用の canvas について */
     transform: scaleX(-1);  /*左右反転させる*/
@@ -20,7 +42,14 @@
   }
   #canvas2 {                 /* スコア用の canvas について */
     position: absolute;    
-    top: 0;                 
+    top: 10%;  
+    left:25%;            
+  }
+  #mirror {                 /* スコア用の canvas について */
+    position: absolute;    
+    top: 0;        
+    width:500px;
+    height:400px;         
   }
   .start-container{
     width: 100%;
@@ -53,9 +82,15 @@
     flex-flow: row wrap;
     position:relative;
     right:18px;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-top:20px;
 
+  }
+  .label{
+    font-size: 16px;
+    color:gray;
+    width:10%;
+    text-align: center;
   }
   .eyeoption {
     background-color: #ffa69e;
@@ -133,6 +168,60 @@
     transform: translateY(4px);
     border-bottom: none;
   }
-  img{
+  .dataimage{
     display: none;
   }
+
+  /* #save{
+    background-color: cornflowerblue;
+    border-radius: 20%;
+    width:auto;
+    position: absolute;
+    top:50%;
+    left:80%;
+    font-size: 16px;
+    padding: 2px 6px;
+  } */
+  #save {
+    position: absolute;
+    top:50%;
+    left:80%;
+    -moz-box-shadow: 3px 4px 0px 0px #8a2a21;
+    -webkit-box-shadow: 3px 4px 0px 0px #8a2a21;
+    box-shadow: 3px 4px 0px 0px #8a2a21;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24437));
+    background:-moz-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+    background:-webkit-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+    background:-o-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+    background:-ms-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+    background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24437',GradientType=0);
+    background-color:#c62d1f;
+    -moz-border-radius:18px;
+    -webkit-border-radius:18px;
+    border-radius:18px;
+    border:1px solid #d02718;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:17px;
+    padding:7px 25px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #810e05;
+  }
+  .myButton:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24437), color-stop(1, #c62d1f));
+    background:-moz-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+    background:-webkit-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+    background:-o-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+    background:-ms-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+    background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24437', endColorstr='#c62d1f',GradientType=0);
+    background-color:#f24437;
+  }
+  .myButton:active {
+    position:relative;
+    top:1px;
+  }
+  

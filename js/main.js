@@ -20,6 +20,9 @@ let acc_selection = "none";
 let cheek_selection = "none";
 const start = document.getElementById("start"); //スタートボタン用に要素を取得
 
+//保存ボタン
+const savebutton = document.getElementById("save");
+
 //目のオプション画像
 const blue = document.getElementById('blue');
 const sun = document.getElementById('sun');
@@ -63,12 +66,14 @@ const aoption4 = document.getElementById("aoption4");
 //メイクのオプション画像
 const corangeL = document.getElementById('c-o-l');
 const corangeR = document.getElementById('c-o-r');
-const cbrownL = document.getElementById('c-b-l');
-const cbrownR = document.getElementById('c-b-r');
+// const cbrownL = document.getElementById('c-b-l');
+// const cbrownR = document.getElementById('c-b-r');
 const credL = document.getElementById('c-r-l');
 const credR = document.getElementById('c-r-r');
 const lip_t = document.getElementById('lip_t');
 const lip_b = document.getElementById('lip_b');
+const lip_tr = document.getElementById('lip_tr');
+const lip_br = document.getElementById('lip_br');
 //メイクのオプションボタン
 const coption0 = document.getElementById("cheekoption0");
 const coption1 = document.getElementById("cheekoption1");
@@ -104,6 +109,7 @@ function drawLoop() {
   // console.log(positions);
 
   if(startcheck){
+    console.log("score",score);
     //以下目ロジック
     if(eye_selection == "none"){
       blue.style.display = "none";
@@ -164,8 +170,8 @@ function drawLoop() {
     if(cheek_selection == "none"){
       corangeL.style.display ="none";
       corangeR.style.display ="none";
-      cbrownL.style.display ="none";
-      cbrownR.style.display ="none";
+      lip_tr.style.display ="none";
+      lip_br.style.display ="none";
       credL.style.display ="none";
       credR.style.display ="none";
     }
@@ -173,33 +179,41 @@ function drawLoop() {
       drawStamp(positions, corangeR, 35, 0.8, 1.0, 0);   // ★オレンジチーク左のスタンプを描画
       drawStamp(positions, corangeL, 39, 0.8, -1.0, 0);   // ★オレンジチーク右のスタンプを描画
     }else if (cheek_selection == "brown"){
-      drawStamp(positions, cbrownL, 35, 0.7, 1.0, 0);   // ★ブラウンチーク左のスタンプを描画
-      drawStamp(positions, cbrownR, 39, 0.7, -1.0, 0);   // ★ブラウンチーク右のスタンプを描画
+      // drawStamp(positions, cbrownL, 35, 0.7, 1.0, 0);   // ★ブラウンチーク左のスタンプを描画
+      // drawStamp(positions, cbrownR, 39, 0.7, -1.0, 0);   // ★ブラウンチーク右のスタンプを描画
+      drawStamp(positions, lip_tr, 47, 0.9, 0, 0);   // ★赤リップのスタンプを描画
+      drawStamp(positions, lip_br, 57, 0.9, 0, 0);   // ★赤リップのスタンプを描画
     }else if (cheek_selection == "red"){
       drawStamp(positions, credR, 35, 0.7, 1.0, 0);   // ★レッドチーク左のスタンプを描画
       drawStamp(positions, credL, 39, 0.7, -1.0, 0);   // ★レッドチーク右のスタンプを描画
     }
     else if (cheek_selection == "lip"){
-      drawStamp(positions, lip_t, 47, 0.9, 0, 0);   // ★リップのスタンプを描画
-      drawStamp(positions, lip_b, 57, 0.9, 0, 0);   // ★リップのスタンプを描画
+      drawStamp(positions, lip_t, 47, 0.9, 0, 0);   // ★ピンクリップのスタンプを描画
+      drawStamp(positions, lip_b, 57, 0.9, 0, 0);   // ★ピンクリップのスタンプを描画
     }
-    if(score ==150){
-      context2.fillStyle = gradient;
-      context2.fillText("Amazing Bunny!", 10, 50);
-    }else if(score ==100){
-      context2.fillStyle = gradient;
-      context2.fillText("You Look Awesome!!", 10, 50);
-    }else if(score == 50){
-      context2.fillStyle = 'pink';
-      context2.fillText("You Look Better", 10, 50);
-    }else if(score == 0){
-      context2.fillStyle = 'black';
-      context2.fillText("You Look OK", 10, 50);
-    }else if(score == -50){
-      context2.fillStyle = 'black';
-      context2.fillText("You Look Weird..", 10, 50);
+    switch (score){
+      case 150:
+        context2.fillStyle = gradient;
+        context2.fillText("Amazing Bunny!", 10, 50);
+        break;
+      case 100:
+        context2.fillStyle = gradient;
+        context2.fillText("You Look Awesome", 10, 50);
+        break;
+      case 50:
+        context2.fillStyle = 'pink';
+        context2.fillText("You Look Better", 10, 50);
+        break;
+      case 0:
+        context2.fillStyle = 'white';
+        context2.textAlign = "start"; 
+        context2.fillText("You Look OK", 10, 50);
+        break;
+      case -50:
+        context2.fillStyle = 'black';
+        context2.fillText("You Look Weird..", 10, 50);
+        break;
     }
-
   }
 }
 drawLoop();                                             // drawLoop 関数をトリガー
@@ -213,6 +227,7 @@ start.addEventListener("click", function() {
 eoption0.addEventListener("click", function() {
   eye_selection = "none";
 });
+//1.HAT - サングラス
 eoption1.addEventListener("click", function() {
   eye_selection = "sun";
   if(hat_selection == "bheadphone" && acc_selection == "cigar"){
@@ -226,9 +241,11 @@ eoption1.addEventListener("click", function() {
     score =0;
    }
 });
+//1.HAT - 青眼鏡
 eoption2.addEventListener("click", function() {
   eye_selection = "blue";
 });
+//1.HAT - 赤いカラコン
 eoption3.addEventListener("click", function() {
   eye_selection = "red";
   if(hat_selection == "bunny" && acc_selection == "nose" && cheek_selection !== "none"){
@@ -242,8 +259,19 @@ eoption3.addEventListener("click", function() {
     score =0;
    }
 });
+//1.HAT - まつ毛
 eoption4.addEventListener("click", function() {
   eye_selection = "eyelash";
+  if(hat_selection == "crown" && acc_selection == "jewel"){
+    score = 100;
+   }
+   else if(hat_selection == "crown" || acc_selection == "jewel"){
+    score = 50;
+   }else if(acc_selection == "mustache"){
+    score = -50;
+   }else{
+    score =0;
+   }
 });
 //クリックイベントリスナー : 帽子
 haption0.addEventListener("click", function() {
@@ -280,6 +308,15 @@ haption3.addEventListener("click", function() {
 });
 haption4.addEventListener("click", function() {
   hat_selection = "crown";
+  if(eye_selection == "eyelash" && acc_selection == "jewel"){
+    score = 100;
+   }else if(eye_selection == "eyelash" || acc_selection == "jewel"){
+    score = 50;
+   }else if(acc_selection !== "none" && acc_selection !== "jewel"){
+    score = -50;
+   }else{
+    score =0;
+   }
 });
 //クリックイベントリスナー : 小物
 aoption0.addEventListener("click", function() {
@@ -315,6 +352,13 @@ aoption3.addEventListener("click", function() {
 });
 aoption4.addEventListener("click", function() {
   acc_selection = "jewel";
+  if(eye_selection == "eyelash" && hat_selection == "crown"){
+    score = 100;
+   }else if(eye_selection == "eyelash" || hat_selection == "crown"){
+    score = 50;
+   }else{
+    score =0;
+   }
 });
 //クリックイベントリスナー : チーク
 coption0.addEventListener("click", function() {
@@ -369,6 +413,11 @@ coption3.addEventListener("click", function() {
 });
 coption4.addEventListener("click", function() {
   cheek_selection = "lip";
+});
+
+savebutton.addEventListener("click", function() {
+  console.log("working");
+  window.open('', document.getElementById('canvas').toDataURL());
 });
 
 
