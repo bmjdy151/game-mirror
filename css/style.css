@@ -9,6 +9,7 @@
     background-image: radial-gradient(#eee 10%, transparent 20%), radial-gradient(#eee 10%, transparent 20%);
     background-size: 20px 20px;
     background-position: 0 0, 10px 10px;
+    font-family: 'Josefin Slab', serif;
   }
   h1{
     color:lightslategray;
@@ -31,9 +32,15 @@
     display: flex;
     justify-content: center;
   }
+
   #video {                  /* カメラ映像を流す video について */
     transform: scaleX(-1);  /* 左右反転させる */
     border-radius: 50%;
+  }
+  #canvas0 {                 /* ビデオ用の canvas について */
+    position: absolute;    
+    top: 0;     
+    border-radius: 50%;            
   }
   #canvas {                 /* 描画用の canvas について */
     transform: scaleX(-1);  /*左右反転させる*/
@@ -45,7 +52,7 @@
     top: 10%;  
     left:25%;            
   }
-  #mirror {                 /* スコア用の canvas について */
+  #mirror {                 /* 鏡画像 */
     position: absolute;    
     top: 0;        
     width:500px;
@@ -172,17 +179,7 @@
     display: none;
   }
 
-  /* #save{
-    background-color: cornflowerblue;
-    border-radius: 20%;
-    width:auto;
-    position: absolute;
-    top:50%;
-    left:80%;
-    font-size: 16px;
-    padding: 2px 6px;
-  } */
-  #save {
+  #save{
     position: absolute;
     top:50%;
     left:80%;
@@ -210,7 +207,7 @@
     text-decoration:none;
     text-shadow:0px 1px 0px #810e05;
   }
-  .myButton:hover {
+  #save:hover {
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24437), color-stop(1, #c62d1f));
     background:-moz-linear-gradient(top, #f24437 5%, #c62d1f 100%);
     background:-webkit-linear-gradient(top, #f24437 5%, #c62d1f 100%);
@@ -220,8 +217,8 @@
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24437', endColorstr='#c62d1f',GradientType=0);
     background-color:#f24437;
   }
-  .myButton:active {
+  #save:active {
     position:relative;
     top:1px;
   }
-  
+   */

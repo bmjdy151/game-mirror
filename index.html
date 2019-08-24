@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Facial Tracker</title>
 　<link type="text/css" rel="stylesheet" href="./css/style.css" media="screen"> <!--cssを読み込む-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 </head>
  
 <body>
@@ -12,14 +13,17 @@
   <div id="mirror-container">  
     <div id="container">  <!-- video の上に canvas をオーバーレイするための div 要素 -->
       <video id="video" width="500" height="400" autoplay></video>  <!-- カメラ映像を流す video -->
+      <!-- <div id="videocontainer"> -->
+      <canvas id="canvas0" width="500" height="400"></canvas><!-- ビデオ用 canvas -->
+      <!-- </div> -->
       <canvas id="canvas" width="500" height="400"></canvas><!-- 重ねて描画する canvas -->
       <canvas id="canvas2" width="300" height="80"></canvas><!-- スコア表示用 canvas -->
     </div>
     <img id="mirror" src="./media/mirror.png" alt="">
-    <button id="save">Save</button>
+    <button class="myButton" id="save" onclick="putImage()">Save</button>  
   </div>
   <div class="start-container">
-    <button id="start">start</button>
+    <button id="start">START</button>
   </div>
   <div class="eyeoption-container">　<!--目オプション表示用 div 要素 -->
     <div class="label">Eyes</div>
@@ -54,6 +58,8 @@
     <div class="cheekoption" id="cheekoption3">Cheek2</div>
     <div class="cheekoption" id="cheekoption4">Lip2</div>
   </div>
+
+  <img src="" id="result" />
   <div id="dat"></div>  <!-- データ表示用 div 要素 -->
    <!--　目データ用 div 要素 -->
   <img class="dataimage" id="blue" src="./media/eyeglass_green.png">
@@ -91,6 +97,8 @@
   <!-- clmtrackr 関連ファイルの読み込み -->
   <script src="./js/clmtrackr.js"></script>          <!-- clmtrackr のメインライブラリの読み込み -->
   <script src="./models/model_pca_20_svm.js"></script>   <!-- 顔モデル（※）の読み込み -->
+  <script src="./js/html2canvas.js"></script>
+  <script src="./js/jquery-2.1.4.js"></script> 
   <script src="./js/main.js"></script> <!--メインのJSの読み込み -->
 </body>
 </html>
