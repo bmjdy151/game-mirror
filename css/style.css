@@ -34,20 +34,28 @@
   }
 
   #video {                  /* カメラ映像を流す video について */
+    width:500px; 
+    height:400px;
     transform: scaleX(-1);  /* 左右反転させる */
     border-radius: 50%;
   }
   #canvas0 {                 /* ビデオ用の canvas について */
+    width:500px; 
+    height:400px;
     position: absolute;    
     top: 0;     
     border-radius: 50%;            
   }
   #canvas {                 /* 描画用の canvas について */
+    width:500px; 
+    height:400px;
     transform: scaleX(-1);  /*左右反転させる*/
     position: absolute;    
     top: 0;                 
   }
   #canvas2 {                 /* スコア用の canvas について */
+    width:300px; 
+    height:80px;
     position: absolute;    
     top: 10%;  
     left:25%;            
@@ -76,6 +84,7 @@
     border-radius: 4px;
     border-bottom: 4px solid rgb(16, 83, 10);
     text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
+    outline: none; 
   }
 
   #start:active {
@@ -179,10 +188,26 @@
     display: none;
   }
 
+  #show{
+    position: absolute;
+    top:35%;
+    left:80%;
+    width:150px;
+    border-radius:4px;
+    background:linear-gradient(to bottom, #dbe488 5%, #ebc82d 100%);
+    box-shadow: 3px 4px 0px 0px #ebc139;
+    color:#5a3c05;
+    font-family:Arial;
+    font-size:17px;
+    padding:7px 25px;
+    border:none;
+    text-decoration:none;
+  }
   #save{
     position: absolute;
     top:50%;
     left:80%;
+    width:150px;
     -moz-box-shadow: 3px 4px 0px 0px #8a2a21;
     -webkit-box-shadow: 3px 4px 0px 0px #8a2a21;
     box-shadow: 3px 4px 0px 0px #8a2a21;
@@ -217,8 +242,33 @@
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24437', endColorstr='#c62d1f',GradientType=0);
     background-color:#f24437;
   }
-  #save:active {
-    position:relative;
-    top:1px;
+
+  @media (max-width: 768px) {
+    body{
+      width:100%;
+    }
+    #start{
+      padding:7px 7px;
+    }
+    #show{
+      top:85%;
+      left:15%;
+      width:100px;
+      padding:2px 7px;
+    }
+    #save{
+      top:85%;
+      left:55%;
+      width:100px;
+      padding:2px 7px;
+    }
+    #video {                  /* カメラ映像を流す video について */
+      width:100%; 
+    }
+    #mirror {                 /* 鏡画像 */      
+      width:100%;        
+    }
+    .label,.eyeoption,.hatoption,.aoption,.cheekoption{
+      font-size: 10px;
+    }
   }
-   */

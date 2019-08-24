@@ -12,15 +12,16 @@
   <h1>Tracking Mirror</h1>
   <div id="mirror-container">  
     <div id="container">  <!-- video の上に canvas をオーバーレイするための div 要素 -->
-      <video id="video" width="500" height="400" autoplay></video>  <!-- カメラ映像を流す video -->
+      <video id="video"  width="500" height="400" autoplay></video>  <!-- カメラ映像を流す video -->
       <!-- <div id="videocontainer"> -->
-      <canvas id="canvas0" width="500" height="400"></canvas><!-- ビデオ用 canvas -->
+      <canvas id="canvas0" width="500" height="400" ></canvas><!-- ビデオ用 canvas -->
       <!-- </div> -->
-      <canvas id="canvas" width="500" height="400"></canvas><!-- 重ねて描画する canvas -->
+      <canvas id="canvas" width="500" height="400"  ></canvas><!-- 重ねて描画する canvas -->
       <canvas id="canvas2" width="300" height="80"></canvas><!-- スコア表示用 canvas -->
     </div>
     <img id="mirror" src="./media/mirror.png" alt="">
-    <button class="myButton" id="save" onclick="putImage()">Save</button>  
+    <button class="myButton" id="show" onclick="showFL()">Show My Faceline</button>  
+    <button class="myButton" id="save" onclick="putImage()">Save as PNG</button>  
   </div>
   <div class="start-container">
     <button id="start">START</button>
@@ -98,6 +99,7 @@
   <script src="./js/clmtrackr.js"></script>          <!-- clmtrackr のメインライブラリの読み込み -->
   <script src="./models/model_pca_20_svm.js"></script>   <!-- 顔モデル（※）の読み込み -->
   <script src="./js/html2canvas.js"></script>
+  <script src="./js/drawingTool.js"></script>
   <script src="./js/jquery-2.1.4.js"></script> 
   <script src="./js/main.js"></script> <!--メインのJSの読み込み -->
 </body>

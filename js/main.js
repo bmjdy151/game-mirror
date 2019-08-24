@@ -7,6 +7,9 @@ const context0 = canvas0.getContext("2d");                // canvas の context 
 const context = canvas.getContext("2d");                // canvas の context の取得
 const context2 = canvas2.getContext("2d");                // canvas の context の取得
 context2.font = "30px Arial";
+
+// const drawingTool = new DrawingTool(canvas);
+
 let score = 0;
 const gradient = context2.createLinearGradient(0, 0, canvas2.width, 0);
 gradient.addColorStop("0","magenta");
@@ -17,6 +20,7 @@ gradient.addColorStop("1.0","red");
 //デフォルト設定
 let startcheck = false;
 let savecheck = false;
+let showcheck = false;
 let eye_selection = "blue";
 let hat_selection = "none";
 let acc_selection = "none";
@@ -93,6 +97,9 @@ navigator.mediaDevices.getUserMedia(constraints).then(stream => {// メディア
   video.srcObject = stream;//ストリームをvideo要素に代入
   const height = "400";
   video.height = height; // ビデオの高さを500に
+
+  // drawingTool.canvas.width = video.clientWidth;
+  // drawingTool.canvas.height = video.offsetHeight;
 });
  
 // clmtrackr の開始
@@ -107,7 +114,10 @@ function drawLoop() {
   // showData(positions);                                  // データの表示
   context.clearRect(0, 0, canvas.width, canvas.height); // canvas をクリア
   context2.clearRect(0, 0, canvas2.width, canvas2.height); // canvas をクリア
-  //tracker.draw(canvas);                                 // canvas にトラッキング結果を描画
+
+  if(showcheck){
+    tracker.draw(canvas);  // canvas にトラッキング結果を描画
+  }
   // console.log(positions);
 
   if(startcheck){
@@ -122,13 +132,8 @@ function drawLoop() {
       eyelash2.style.display = "none";
     }else if(eye_selection == "blue"){
       drawStamp(positions, blue, 33, 2, 0.0, 0.3);   // ★青メガネのスタンプを描画
-      context2.fillText("You Look OK", 10, 50);
     }else if(eye_selection == "sun"){
       drawStamp(positions, sun, 33, 2, 0.0, 0.3);   // ★サングラスのスタンプを描画
-      if(hat_selection == "bheadphone"){
-      }else{
-        score = 0;
-      }
     }else if(eye_selection == "red"){
       // drawStamp(positions, red, 33, 2, 0.0, 0.3);   // ★赤メガネのスタンプを描画
       drawStamp(positions, reye, 32, 0.25, 0, 0);   // ★レッドチーク左のスタンプを描画
@@ -238,13 +243,8 @@ function drawLoop() {
       eyelash2.style.display = "none";
     }else if(eye_selection == "blue"){
       drawStamp(positions, blue, 33, 2, 0.0, 0.3);   // ★青メガネのスタンプを描画
-      context2.fillText("You Look OK", 10, 50);
     }else if(eye_selection == "sun"){
       drawStamp(positions, sun, 33, 2, 0.0, 0.3);   // ★サングラスのスタンプを描画
-      if(hat_selection == "bheadphone"){
-      }else{
-        score = 0;
-      }
     }else if(eye_selection == "red"){
       // drawStamp(positions, red, 33, 2, 0.0, 0.3);   // ★赤メガネのスタンプを描画
       drawStamp(positions, reye, 32, 0.25, 0, 0);   // ★レッドチーク左のスタンプを描画
@@ -344,7 +344,19 @@ drawLoop();                                             // drawLoop 関数をト
 
 //スタートボタン
 start.addEventListener("click", function() {
-  startcheck = true;
+  if(startcheck == false){
+    startcheck = true;
+    document.getElementById('start').innerText = "STOP";
+    document.getElementById('start').style.backgroundColor = "rgb(16, 83, 10)";
+    document.getElementById('start').style.borderBottomColor = "#bef1a0";
+    document.getElementById('start').style.color = "#bef1a0";
+  }else{
+    startcheck = false;
+    document.getElementById('start').innerText = "START";
+    document.getElementById('start').style.backgroundColor = "#bef1a0";
+    document.getElementById('start').style.borderBottomColor = "rgb(16, 83, 10)";
+    document.getElementById('start').style.color = "rgb(16, 83, 10)";
+  }
 });
 
 //クリックイベントリスナー : 目
@@ -571,9 +583,10 @@ coption4.addEventListener("click", function() {
 });
 
 
-//スクリーンショット
+//スクリーンショット関数
 function putImage(){
   savecheck = true;
+  document.getElementById('save').innerText = "STOP";
   setTimeout(function() { 
     html2canvas(document.querySelector("#container")).then(canvas => {
       window.open(canvas.toDataURL('image/png'));
@@ -584,8 +597,18 @@ function putImage(){
       a.click()
       savecheck = false;
     });   
-  }, 100);          
+  }, 100);      
 }  
+
+function showFL(){
+  if(showcheck == false){
+    showcheck = true;
+    document.getElementById('show').innerText = "Hide My Faceline";
+  }else{
+    showcheck = false;
+    document.getElementById('show').innerText = "Show My Faceline";
+  }
+}
 
 // ★スタンプを描く drawStamp 関数 (顔部品の位置データ, 画像, 基準位置, 大きさ, 横シフト, 縦シフト)
 function drawStamp(pos, img, bNo, scale, hShift, vShift) {
