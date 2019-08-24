@@ -72,6 +72,7 @@
     justify-content: center;
   }
   #start{
+    cursor: pointer;
     background-color: #bef1a0;
     width:95%;
     margin:0px;
@@ -109,6 +110,7 @@
     text-align: center;
   }
   .eyeoption {
+    cursor: pointer;
     background-color: #ffa69e;
     width:15%;
     margin:0px;
@@ -129,6 +131,7 @@
   }
 
   .hatoption {
+    cursor: pointer;
     background-color: #51b7f1;
     width:15%;
     margin:0px;
@@ -148,6 +151,7 @@
   }
 
   .aoption {
+    cursor: pointer;
     background-color: #f0f5a6;
     width:15%;
     margin:0px;
@@ -167,6 +171,7 @@
   }
 
   .cheekoption {
+    cursor: pointer;
     background-color: #ffd59e;
     width:15%;
     margin:0px;
@@ -189,6 +194,7 @@
   }
 
   #show{
+    cursor: pointer;
     position: absolute;
     top:35%;
     left:80%;
@@ -204,6 +210,7 @@
     text-decoration:none;
   }
   #save{
+    cursor: pointer;
     position: absolute;
     top:50%;
     left:80%;
