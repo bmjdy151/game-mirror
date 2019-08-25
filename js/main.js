@@ -342,7 +342,23 @@ function drawLoop() {
 }
 drawLoop();                                             // drawLoop 関数をトリガー
 
-//スタートボタン
+//スタートボタン モバイル
+start.addEventListener("touchstart", function() {
+  if(startcheck == false){
+    startcheck = true;
+    document.getElementById('start').innerText = "STOP";
+    document.getElementById('start').style.backgroundColor = "rgb(16, 83, 10)";
+    document.getElementById('start').style.borderBottomColor = "#bef1a0";
+    document.getElementById('start').style.color = "#bef1a0";
+  }else{
+    startcheck = false;
+    document.getElementById('start').innerText = "START";
+    document.getElementById('start').style.backgroundColor = "#bef1a0";
+    document.getElementById('start').style.borderBottomColor = "rgb(16, 83, 10)";
+    document.getElementById('start').style.color = "rgb(16, 83, 10)";
+  }
+});
+//スタートボタンPC
 start.addEventListener("click", function() {
   if(startcheck == false){
     startcheck = true;
@@ -358,6 +374,8 @@ start.addEventListener("click", function() {
     document.getElementById('start').style.color = "rgb(16, 83, 10)";
   }
 });
+
+
 
 //クリックイベントリスナー : 目
 eoption0.addEventListener("click", function() {
