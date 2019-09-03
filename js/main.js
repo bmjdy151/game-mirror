@@ -356,24 +356,24 @@ start.addEventListener("touchstart", function() {
     document.getElementById('start').style.backgroundColor = "#bef1a0";
     document.getElementById('start').style.borderBottomColor = "rgb(16, 83, 10)";
     document.getElementById('start').style.color = "rgb(16, 83, 10)";
-  }
+  } 
 });
 //スタートボタンPC
-start.addEventListener("click", function() {
-  if(startcheck == false){
-    startcheck = true;
-    document.getElementById('start').innerText = "STOP";
-    document.getElementById('start').style.backgroundColor = "rgb(16, 83, 10)";
-    document.getElementById('start').style.borderBottomColor = "#bef1a0";
-    document.getElementById('start').style.color = "#bef1a0";
-  }else{
-    startcheck = false;
-    document.getElementById('start').innerText = "START";
-    document.getElementById('start').style.backgroundColor = "#bef1a0";
-    document.getElementById('start').style.borderBottomColor = "rgb(16, 83, 10)";
-    document.getElementById('start').style.color = "rgb(16, 83, 10)";
-  }
-});
+// start.addEventListener("click", function() {
+//   if(startcheck == false){
+//     startcheck = true;
+//     document.getElementById('start').innerText = "STOP";
+//     document.getElementById('start').style.backgroundColor = "rgb(16, 83, 10)";
+//     document.getElementById('start').style.borderBottomColor = "#bef1a0";
+//     document.getElementById('start').style.color = "#bef1a0";
+//   }else{
+//     startcheck = false;
+//     document.getElementById('start').innerText = "START";
+//     document.getElementById('start').style.backgroundColor = "#bef1a0";
+//     document.getElementById('start').style.borderBottomColor = "rgb(16, 83, 10)";
+//     document.getElementById('start').style.color = "rgb(16, 83, 10)";
+//   }
+// });
 
 
 
@@ -603,6 +603,7 @@ coption4.addEventListener("click", function() {
 
 //スクリーンショット関数
 function putImage(){
+  canvas0.style.display = "none";
   savecheck = true;
   document.getElementById('save').innerText = "STOP";
   setTimeout(function() { 
